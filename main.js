@@ -23,5 +23,5 @@ function zacni() {
     } else {
         vyherca = "PC";
     }
-    alert("PC si vybral: " + vyberpc + vyherca);
+    alert("PC si vybral: " + vyberpc + "\n" + vyherca);
 }
