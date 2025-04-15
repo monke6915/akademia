@@ -43,6 +43,7 @@ function addTask() {
 	console.log(tasks.value)
 	inputRef.value.value = ''
 	
+	
 	}
 
 	function logTaskStatus(task) {
