@@ -1,0 +1,62 @@
+{
+  "name_first": "Matej",
+  "name_last": "Pis",
+  "role": "[Your headline / role]",
+  "contact": [
+    "[email@example.com]",
+    "[+421 ...]",
+    "[City, Country]"
+  ],
+  "links": [
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/matej-pis" },
+    { "label": "GitHub",   "url": "[https://github.com/...]" },
+    { "label": "Portfolio","url": "[https://...]" }
+  ],
+  "summary": "[Two to four sentences: where you started, what you build, and what you are aiming at next. This is the paragraph a recruiter actually reads, so keep it concrete — name the tools, the scale, the outcome.]",
+  "experience": [
+    {
+      "from": "[Mon YYYY]", "to": "Present",
+      "title": "[Job title]", "org": "[Company]",
+      "detail": "[What you owned and what came of it. Lead with the result, then the stack: shipped X to N users, rebuilt Y, cut Z by half.]"
+    },
+    {
+      "from": "[Mon YYYY]", "to": "[Mon YYYY]",
+      "title": "[Job title]", "org": "[Company]",
+      "detail": "[Second role. Two or three lines is plenty — specifics beat adjectives.]"
+    },
+    {
+      "from": "[Mon YYYY]", "to": "[Mon YYYY]",
+      "title": "[Job title]", "org": "[Company]",
+      "detail": "[Third role.]"
+    }
+  ],
+  "projects": [
+    { "title": "[Project or award]", "note": "[One line on what it was.]", "tag": "[Result]" },
+    { "title": "[Project or award]", "note": "[One line on what it was.]", "tag": "[Result]" },
+    { "title": "[Project or award]", "note": "[One line on what it was.]", "tag": "[Result]" }
+  ],
+  "education": [
+    {
+      "from": "[Mon YYYY]", "to": "Present",
+      "title": "[School]", "org": "[Field of study]",
+      "detail": "[Anything worth noting — focus, cohort, thesis.]"
+    },
+    {
+      "from": "[Mon YYYY]", "to": "[Mon YYYY]",
+      "title": "[School]", "org": "[Field of study]",
+      "detail": ""
+    }
+  ],
+  "skills": [
+    { "name": "[Skill]", "level": "[Level / years]" },
+    { "name": "[Skill]", "level": "[Level / years]" },
+    { "name": "[Skill]", "level": "[Level / years]" },
+    { "name": "[Skill]", "level": "[Level / years]" },
+    { "name": "[Skill]", "level": "[Level / years]" }
+  ],
+  "languages": [
+    { "name": "Slovak",  "level": "Native" },
+    { "name": "English", "level": "[C1 / Professional]" },
+    { "name": "[Language]", "level": "[Level]" }
+  ]
+}

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>__NAME__ — CV</title>
+<style>
+/* ---- Typefaces (embedded, so the PDF is self-contained) ---------------- */
+@font-face{font-family:'Inter';src:url(__INTER_LAT__) format('woff2');font-weight:100 900;font-style:normal;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Inter';src:url(__INTER_EXT__) format('woff2');font-weight:100 900;font-style:normal;
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'Source Serif 4';src:url(__SERIF_LAT__) format('woff2');font-weight:200 900;font-style:normal;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Source Serif 4';src:url(__SERIF_EXT__) format('woff2');font-weight:200 900;font-style:normal;
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+
+/* ---- Ground ------------------------------------------------------------ */
+:root{
+  --paper:#F4F3EF; --ink:#151A21; --muted:#5E636B; --faint:#8B9098; --rule:#C9C7C0;
+  --pad:15mm;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+@page{size:A4;margin:0}
+html,body{width:210mm}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:'Inter',sans-serif; font-size:8.6pt; line-height:1.5;
+  -webkit-font-smoothing:antialiased; font-feature-settings:"kern" 1,"liga" 1;
+}
+.page{
+  position:relative; width:210mm; height:297mm; padding:var(--pad);
+  background:var(--paper); overflow:hidden;
+  display:flex; flex-direction:column;
+}
+/* barely-there paper grain */
+.grain{
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  opacity:.5; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/><feColorMatrix type='saturate' values='0'/></filter><rect width='300' height='300' filter='url(%23n)' opacity='.14'/></svg>");
+}
+.page > *:not(.grain){position:relative; z-index:1}
+
+/* ---- Section chrome ---------------------------------------------------- */
+h2{
+  font-family:'Source Serif 4',serif; font-weight:400; font-size:13.5pt;
+  letter-spacing:.002em; line-height:1.1;
+  padding-bottom:2.4mm; margin-bottom:3.4mm; border-bottom:.5pt solid var(--rule);
+}
+.muted{color:var(--muted)}
+
+/* ---- Masthead ---------------------------------------------------------- */
+.top{display:grid; grid-template-columns:1fr 1fr; gap:0 10mm; margin-bottom:10mm}
+.meta{display:grid; grid-template-columns:1fr 1fr; gap:0 8mm}
+.meta ul{list-style:none}
+.meta li{margin-bottom:1.1mm; color:var(--muted)}
+.meta a{color:var(--muted); text-decoration:none; border-bottom:.4pt solid var(--rule)}
+
+.name{
+  font-family:'Source Serif 4',serif; font-weight:400;
+  font-size:52pt; line-height:.92; letter-spacing:-.016em;
+  margin:17mm 0 0;
+}
+.role{
+  font-size:12pt; font-weight:500; letter-spacing:-.01em;
+  margin-top:5mm; color:var(--ink);
+}
+.summary{
+  margin-top:9mm; max-width:88mm; color:var(--muted);
+  font-size:9pt; line-height:1.68;
+}
+
+/* ---- Two-column body --------------------------------------------------- */
+.body{display:grid; grid-template-columns:1fr 1fr; gap:0 10mm; align-items:start; margin-top:auto}
+.col{display:flex; flex-direction:column}
+section{margin-bottom:8.5mm}
+section:last-child{margin-bottom:0}
+
+/* timeline rows: dates | content */
+.row{display:grid; grid-template-columns:20mm 1fr; gap:0 4mm; margin-bottom:5mm}
+.row:last-child{margin-bottom:0}
+.when{font-size:7.6pt; color:var(--faint); line-height:1.42; padding-top:.4mm}
+.title{font-size:9.6pt; font-weight:600; letter-spacing:-.012em; line-height:1.25}
+.org{font-size:9.2pt; color:var(--muted); margin-top:.3mm}
+.detail{font-size:8.2pt; color:var(--muted); line-height:1.55; margin-top:1.6mm}
+
+/* listed items: label | tag */
+.item{margin-bottom:3.2mm}
+.item:last-child{margin-bottom:0}
+.item .hd{display:flex; justify-content:space-between; align-items:baseline; gap:4mm}
+.item .nm{font-size:9.2pt; font-weight:600; letter-spacing:-.01em}
+.item .tag{font-size:7.8pt; color:var(--faint); white-space:nowrap}
+.item .sub{font-size:8.4pt; color:var(--muted); margin-top:.2mm}
+
+/* skills / languages pair up side by side */
+.pair{display:grid; grid-template-columns:1fr 1fr; gap:0 8mm}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="grain"></div>
+
+  <header class="top">
+    <div>
+      <div class="meta">
+        <div>
+          <h2>Contact</h2>
+          <ul>__CONTACT__</ul>
+        </div>
+        <div>
+          <h2>Links</h2>
+          <ul>__LINKS__</ul>
+        </div>
+      </div>
+      <h1 class="name">__NAME_FIRST__<br>__NAME_LAST__</h1>
+      <p class="role">__ROLE__</p>
+      <p class="summary">__SUMMARY__</p>
+    </div>
+    <div>
+      <section><h2>Experience</h2>__EXPERIENCE__</section>
+      <section style="margin-bottom:0"><h2>__PROJECTS_LABEL__</h2>__PROJECTS__</section>
+    </div>
+  </header>
+
+  <div class="body">
+    <div class="col">
+      <section>
+        <div class="pair">
+          <div>
+            <h2>Skills</h2>
+            __SKILLS__
+          </div>
+          <div>
+            <h2>Languages</h2>
+            __LANGUAGES__
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="col">
+      <section><h2>Education</h2>__EDUCATION__</section>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
