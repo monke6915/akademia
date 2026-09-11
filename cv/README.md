@@ -1,12 +1,15 @@
 # CV
 
-One-page A4 CV, generated from a single JSON file, in a choice of four layouts.
+One-page A4 CV, generated from a single JSON file.
 
 ```bash
-python3 cv/build.py                      # default layout -> cv/Matej_Pis_CV.pdf
-python3 cv/build.py --layout banner      # pick one
+python3 cv/build.py                      # -> cv/Matej_Pis_CV.pdf
+python3 cv/build.py --layout timeline    # try an alternative
 python3 cv/build.py --all                # render every layout as cv/preview-*.pdf
 ```
+
+`rail` is the chosen layout and the default. The other three are kept so you
+can switch without rebuilding anything.
 
 - **`cv.data.json`** — all content. This is the only file you normally edit.
 - **`template-<layout>.html`** — one file per layout: skeleton plus its own CSS.
@@ -18,11 +21,11 @@ python3 cv/build.py --all                # render every layout as cv/preview-*.p
 The output is real selectable text, not outlines, so applicant-tracking
 systems can parse it.
 
-## The four layouts
+## The layouts
 
 | `--layout` | Organising idea |
 |---|---|
-| `rail` | Full-width masthead over a heavy rule, a magazine-style lede, then numbered sections hanging off a left rail with dates pushed hard right. |
+| `rail` **(default)** | Full-width masthead over a heavy rule, a magazine-style lede, then numbered sections hanging off a left rail with dates pushed hard right. |
 | `sidebar` | A tinted column bleeding down the left edge carries the name, contact, skills and languages; experience runs wide alongside it. |
 | `timeline` | Name centred over a rule, then a literal career spine — a hairline down the page with an accent node at every entry and dates ranged into the left margin. |
 | `banner` | A reversed-out ink band across the top, then an asymmetric two-column body: experience wide on the left, everything else in a narrower aside. |
