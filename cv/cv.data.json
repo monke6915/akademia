@@ -53,19 +53,27 @@
   ],
   "skills": [
     {
-      "group": "Engineering",
+      "group": "Backend & data",
       "items": [
-        "[your languages — e.g. Python, TypeScript]",
-        "Backend development",
-        "Web development"
+        "Node.js",
+        "Supabase / Postgres"
+      ]
+    },
+    {
+      "group": "Frontend",
+      "items": [
+        "Vue.js",
+        "React / Next.js",
+        "JavaScript",
+        "HTML & CSS"
       ]
     },
     {
       "group": "AI & automation",
       "items": [
         "Prompt engineering",
-        "Workflow automation",
-        "AI integration"
+        "AI-assisted development",
+        "Workflow automation"
       ]
     },
     {
@@ -83,7 +91,7 @@
     },
     {
       "name": "English",
-      "level": "[level?]"
+      "level": "B2 — Upper intermediate"
     }
   ]
 }
