@@ -53,7 +53,7 @@ def timeline(entries):
     """Role/school with its date range; .content wraps for the spine layout."""
     out = []
     for x in entries:
-        when = " — ".join(p for p in (x.get("from"), x.get("to")) if p)
+        when = " – ".join(p for p in (x.get("from"), x.get("to")) if p)
         org = f'<div class="org">{e(x["org"])}</div>' if x.get("org") else ""
         detail = f'<div class="detail">{e(x["detail"])}</div>' if x.get("detail") else ""
         out.append(

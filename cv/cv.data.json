@@ -17,13 +17,13 @@
       "url": "https://www.linkedin.com/in/matej-pis"
     }
   ],
-  "summary": "Co-founder of Dotless, an AI business-discovery tool for freelancers and web agencies — built with one other person and now serving 11,000+ users. Alongside it, a backend internship at WEZEO building AI features and workflow automation. Still at secondary school, already shipping production software.",
+  "summary": "Co-founder of Dotless, an AI business-discovery tool for freelancers and web agencies. Built with one other person and now serving 11,000+ users. Alongside it, a backend internship at WEZEO building AI features and workflow automation. Still at secondary school, already shipping production software.",
   "experience": [
     {
       "from": "Apr 2026",
       "to": "Present",
       "title": "Co-Founder",
-      "org": "Dotless — Bratislava, Slovakia",
+      "org": "Dotless · Bratislava, Slovakia",
       "detail": "AI business discovery for freelancers and web agencies. Three months from first commit to launch, built with a single co-founder. Since going live: 11,000+ sign-ups, 50,000+ businesses analysed and $1.8k in monthly recurring revenue."
     },
     {
@@ -91,7 +91,7 @@
     },
     {
       "name": "English",
-      "level": "B2 — Upper intermediate"
+      "level": "B2 · Upper intermediate"
     }
   ]
 }
