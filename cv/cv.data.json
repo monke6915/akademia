@@ -17,7 +17,7 @@
       "url": "https://www.linkedin.com/in/matej-pis"
     }
   ],
-  "summary": "Co-founder of Dotless, an AI business-discovery tool for freelancers and web agencies. Built with one other person and now serving 11,000+ users. Alongside it, a backend internship at WEZEO deploying AI agents. Still at secondary school, already shipping production software.",
+  "summary": "Co-founder of Dotless, an AI business-discovery tool for freelancers and web agencies. Built with one other person and now serving 11,000+ users. Alongside it, a backend internship at WEZEO working on AI automation. Still at secondary school, already shipping production software.",
   "experience": [
     {
       "from": "Apr 2026",
@@ -31,7 +31,7 @@
       "to": "Present",
       "title": "Back End Developer · Internship",
       "org": "WEZEO",
-      "detail": "Works on the infrastructure behind AI agents: deployment, hosting and database integration."
+      "detail": "Backend work on AI automation: deployment, hosting and database integration."
     }
   ],
   "projects_label": "Projects & competitions",
