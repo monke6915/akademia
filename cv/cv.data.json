@@ -1,7 +1,7 @@
 {
   "name_first": "Matej",
   "name_last": "Píš",
-  "role": "Co-founder @ Dotless · AI & Prompt Engineering",
+  "role": "Co-founder & Backend Developer",
   "accent": "#8A5A3C",
   "contact": [
     "pismatej811@gmail.com",
@@ -17,7 +17,7 @@
       "url": "https://www.linkedin.com/in/matej-pis"
     }
   ],
-  "summary": "Co-founder of Dotless — AI business discovery for freelancers and web agencies. We find businesses with missing or outdated websites and help web designers turn them into clients. 11,000+ sign-ups so far.",
+  "summary": "Co-founder of Dotless, an AI business-discovery tool for freelancers and web agencies — 11,000+ sign-ups in its first six months. Alongside it, a backend internship at WEZEO building AI features and workflow automation. Still at secondary school, already shipping production software.",
   "experience": [
     {
       "from": "Apr 2026",
@@ -48,35 +48,31 @@
       "to": "Sep 2028",
       "title": "Skyro",
       "org": "AI & IT High School",
-      "detail": "Currently in the third year."
+      "detail": "Third year of a four-year programme in AI and IT."
     }
   ],
   "skills": [
     {
-      "group": "AI & automation",
+      "group": "Engineering",
       "items": [
-        "Artificial Intelligence",
-        "Prompt Engineering",
-        "Workflow Automation"
+        "[your languages — e.g. Python, TypeScript]",
+        "Backend development",
+        "Web development"
       ]
     },
     {
-      "group": "Engineering",
+      "group": "AI & automation",
       "items": [
-        "Web Development",
-        "Server Programming",
-        "Back-end Operations",
-        "Web Design"
+        "Prompt engineering",
+        "Workflow automation",
+        "AI integration"
       ]
     },
     {
       "group": "Product & growth",
       "items": [
-        "SaaS",
-        "Product Development",
-        "Lead Generation",
-        "Startups",
-        "Entrepreneurship"
+        "Product development",
+        "Lead generation"
       ]
     }
   ],
