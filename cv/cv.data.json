@@ -34,17 +34,12 @@
       "detail": "Backend development with a focus on AI features and workflow automation."
     }
   ],
-  "projects_label": "Projects & competitions",
+  "projects_label": "Competitions",
   "projects": [
     {
       "title": "Hálová High School Hackathon 2026",
       "note": "Team hackathon for secondary school students.",
       "tag": "3rd"
-    },
-    {
-      "title": "Shopify stores",
-      "note": "Built and ran my own e-commerce stores.",
-      "tag": "2025"
     }
   ],
   "education": [
