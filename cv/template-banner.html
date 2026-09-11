@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>__NAME__ — CV</title>
+<style>
+__FONTS__
+:root{
+  --fs:__FS__pt; --u:var(--fs);
+  --paper:#FCFBF9; --ink:#151A22; --onink:#F4F2ED; --onink-dim:#A8AEB8;
+  --muted:#585D65; --faint:#9AA0A8; --rule:#DCD8CE; --hair:#E9E5DC;
+  --accent:__ACCENT__; --pad:15mm;
+  --accent-on-ink:color-mix(in srgb, __ACCENT__ 52%, #FFFFFF);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+@page{size:A4;margin:0}
+body{
+  width:210mm; background:var(--paper); color:var(--ink);
+  font-family:'Inter',sans-serif; font-size:var(--fs); line-height:1.5;
+  -webkit-font-smoothing:antialiased; font-feature-settings:"kern" 1,"liga" 1;
+}
+.page{width:210mm; min-height:297mm; display:flex; flex-direction:column}
+
+/* ---- Reversed-out header band, full bleed ----------------------------- */
+.banner{
+  background:var(--ink); color:var(--onink);
+  padding:14mm var(--pad) 12mm;
+  display:flex; justify-content:space-between; align-items:flex-end; gap:10mm;
+}
+.name{
+  font-family:'Source Serif 4',serif; font-weight:400; color:var(--onink);
+  font-size:calc(var(--fs)*4.3); line-height:.96; letter-spacing:-.018em;
+}
+.role{
+  font-size:calc(var(--fs)*1.12); font-weight:500; letter-spacing:-.008em;
+  color:var(--accent-on-ink); margin-top:calc(var(--u)*.85);
+}
+.coords{text-align:right; font-size:calc(var(--fs)*.93); line-height:1.66; color:var(--onink-dim)}
+.coords a{color:var(--onink-dim); text-decoration:none}
+.coords .sep{color:#4A505A; padding:0 1.2mm}
+
+/* ---- Body: wide main column, narrower aside -------------------------- */
+.body{
+  flex:1; display:grid; grid-template-columns:1.62fr 1fr; gap:0 11mm;
+  padding:11mm var(--pad) 12mm;
+}
+h2{
+  font-family:'Source Serif 4',serif; font-weight:400;
+  font-size:calc(var(--fs)*1.48); line-height:1.15;
+  padding-bottom:calc(var(--u)*.48); border-bottom:.6pt solid var(--rule);
+  margin-bottom:calc(var(--u)*1.1);
+}
+section{margin-bottom:calc(var(--u)*2.1)}
+section:last-child{margin-bottom:0}
+.summary{font-size:calc(var(--fs)*1.03); line-height:1.68; color:var(--muted)}
+
+.row{padding-bottom:calc(var(--u)*1.25)}
+.row:last-child{padding-bottom:0}
+.row + .row{border-top:.6pt solid var(--hair); padding-top:calc(var(--u)*1.1)}
+.rowhd{display:flex; justify-content:space-between; align-items:baseline; gap:5mm}
+.title{font-size:calc(var(--fs)*1.14); font-weight:600; letter-spacing:-.014em; line-height:1.25}
+.when{font-size:calc(var(--fs)*.86); color:var(--faint); white-space:nowrap; font-variant-numeric:tabular-nums}
+.org{font-size:calc(var(--fs)*1.02); color:var(--muted); margin-top:calc(var(--u)*.1)}
+.detail{font-size:calc(var(--fs)*.96); color:var(--muted); line-height:1.58; margin-top:calc(var(--u)*.55)}
+
+.cell + .cell{margin-top:calc(var(--u)*.92)}
+.cell .nm{font-size:calc(var(--fs)*1.02); font-weight:600; letter-spacing:-.01em}
+.cell .lv{font-size:calc(var(--fs)*.9); color:var(--faint); margin-top:calc(var(--u)*.08)}
+
+.line{padding:calc(var(--u)*.68) 0}
+.line:first-child{padding-top:0}
+.line:last-child{padding-bottom:0}
+.line + .line{border-top:.6pt solid var(--hair)}
+.line .nm{font-size:calc(var(--fs)*1.02); font-weight:600; letter-spacing:-.01em}
+.line .note{font-size:calc(var(--fs)*.94); color:var(--muted); margin-top:calc(var(--u)*.08)}
+.line .tag{font-size:calc(var(--fs)*.86); color:var(--accent); font-weight:500}
+
+/* one date slot per layout */
+.row > .when{display:none}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="banner">
+    <div>
+      <h1 class="name">__NAME__</h1>
+      <p class="role">__ROLE__</p>
+    </div>
+    <div class="coords">__COORDS__</div>
+  </header>
+
+  <div class="body">
+    <div>
+      <section><h2>Experience</h2>__EXPERIENCE__</section>
+      <section><h2>Education</h2>__EDUCATION__</section>
+    </div>
+    <aside>
+      <section><h2>Profile</h2><p class="summary">__SUMMARY__</p></section>
+      <section><h2>__PROJECTS_LABEL__</h2>__PROJECTS__</section>
+      <section><h2>Skills</h2>__SKILLS__</section>
+      <section><h2>Languages</h2>__LANGUAGES__</section>
+    </aside>
+  </div>
+
+</div>
+</body>
+</html>

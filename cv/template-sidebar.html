@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>__NAME__ — CV</title>
+<style>
+__FONTS__
+:root{
+  --fs:__FS__pt; --u:var(--fs);
+  --paper:#FCFBF9; --band:#EEEAE1; --ink:#14181E; --muted:#585D65;
+  --faint:#9AA0A8; --rule:#DAD6CC; --hair:#E8E4DB; --accent:__ACCENT__;
+  --side:64mm; --pad:13mm;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+@page{size:A4;margin:0}
+body{
+  width:210mm; background:var(--paper); color:var(--ink);
+  font-family:'Inter',sans-serif; font-size:var(--fs); line-height:1.5;
+  -webkit-font-smoothing:antialiased; font-feature-settings:"kern" 1,"liga" 1;
+}
+/* Full-bleed tinted rail down the left edge, main column alongside */
+.page{width:210mm; min-height:297mm; display:grid; grid-template-columns:var(--side) 1fr}
+.side{background:var(--band); padding:var(--pad) 9mm}
+.main{padding:var(--pad) var(--pad) 12mm 11mm}
+
+/* ---- Sidebar ---------------------------------------------------------- */
+.name{
+  font-family:'Source Serif 4',serif; font-weight:400;
+  font-size:calc(var(--fs)*3.25); line-height:.98; letter-spacing:-.018em;
+}
+.role{
+  font-size:calc(var(--fs)*1.06); font-weight:500; line-height:1.34;
+  letter-spacing:-.01em; color:var(--accent); margin-top:calc(var(--u)*1);
+}
+.side h3{
+  font-size:calc(var(--fs)*.8); font-weight:600; letter-spacing:.15em;
+  text-transform:uppercase; color:var(--faint);
+  padding-bottom:calc(var(--u)*.5); border-bottom:.6pt solid var(--rule);
+  margin-bottom:calc(var(--u)*.95);
+}
+.side .block{margin-top:calc(var(--u)*2.2)}
+.side ul{list-style:none}
+.side li{font-size:calc(var(--fs)*.97); color:var(--muted); margin-bottom:calc(var(--u)*.42)}
+.side a{color:var(--muted); text-decoration:none; border-bottom:.4pt solid var(--rule)}
+.cell + .cell{margin-top:calc(var(--u)*.95)}
+.cell .nm{font-size:calc(var(--fs)*1); font-weight:600; letter-spacing:-.01em}
+.cell .lv{font-size:calc(var(--fs)*.9); color:var(--faint); margin-top:calc(var(--u)*.08)}
+
+/* ---- Main column ------------------------------------------------------ */
+.main h2{
+  font-family:'Source Serif 4',serif; font-weight:400;
+  font-size:calc(var(--fs)*1.5); line-height:1.15;
+  padding-bottom:calc(var(--u)*.5); border-bottom:.6pt solid var(--rule);
+  margin-bottom:calc(var(--u)*1.15);
+}
+.main section{margin-bottom:calc(var(--u)*2.2)}
+.main section:last-child{margin-bottom:0}
+.summary{font-size:calc(var(--fs)*1.05); line-height:1.68; color:var(--muted)}
+
+.row{padding-bottom:calc(var(--u)*1.3)}
+.row:last-child{padding-bottom:0}
+.row + .row{border-top:.6pt solid var(--hair); padding-top:calc(var(--u)*1.15)}
+.rowhd{display:flex; justify-content:space-between; align-items:baseline; gap:5mm}
+.title{font-size:calc(var(--fs)*1.14); font-weight:600; letter-spacing:-.014em; line-height:1.25}
+.when{font-size:calc(var(--fs)*.86); color:var(--faint); white-space:nowrap; font-variant-numeric:tabular-nums}
+.org{font-size:calc(var(--fs)*1.02); color:var(--muted); margin-top:calc(var(--u)*.1)}
+.detail{font-size:calc(var(--fs)*.96); color:var(--muted); line-height:1.58; margin-top:calc(var(--u)*.55)}
+
+.line{display:flex; justify-content:space-between; align-items:baseline; gap:5mm; padding:calc(var(--u)*.72) 0}
+.line:first-child{padding-top:0}
+.line:last-child{padding-bottom:0}
+.line + .line{border-top:.6pt solid var(--hair)}
+.line .nm{font-size:calc(var(--fs)*1.02); font-weight:600; letter-spacing:-.01em}
+.line .note{font-size:calc(var(--fs)*.96); color:var(--muted); margin-top:calc(var(--u)*.08)}
+.line .tag{font-size:calc(var(--fs)*.86); color:var(--accent); font-weight:500; white-space:nowrap}
+
+/* one date slot per layout */
+.row > .when{display:none}
+</style>
+</head>
+<body>
+<div class="page">
+  <aside class="side">
+    <h1 class="name">__NAME_FIRST__<br>__NAME_LAST__</h1>
+    <p class="role">__ROLE__</p>
+    <div class="block"><h3>Contact</h3><ul>__CONTACT_LIST__</ul></div>
+    <div class="block"><h3>Links</h3><ul>__LINKS_LIST__</ul></div>
+    <div class="block"><h3>Skills</h3>__SKILLS__</div>
+    <div class="block"><h3>Languages</h3>__LANGUAGES__</div>
+  </aside>
+  <main class="main">
+    <section><h2>Profile</h2><p class="summary">__SUMMARY__</p></section>
+    <section><h2>Experience</h2>__EXPERIENCE__</section>
+    <section><h2>__PROJECTS_LABEL__</h2>__PROJECTS__</section>
+    <section><h2>Education</h2>__EDUCATION__</section>
+  </main>
+</div>
+</body>
+</html>

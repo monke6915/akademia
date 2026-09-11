@@ -1,20 +1,33 @@
 #!/usr/bin/env python3
-"""Render cv.data.json into a print-ready A4 PDF.
+"""Render cv.data.json into a print-ready one-page A4 PDF.
 
-    python3 cv/build.py                 # -> cv/Matej_Pis_CV.pdf
-    python3 cv/build.py --data other.json --out other.pdf
+    python3 cv/build.py                     # default layout
+    python3 cv/build.py --layout banner     # one specific layout
+    python3 cv/build.py --all               # every layout, for comparison
 
-Edit cv.data.json and re-run; nothing else needs touching.
+Content lives entirely in cv.data.json; the layouts are template-*.html.
 """
 import argparse, base64, html, json, pathlib, shutil, subprocess, sys, tempfile
 
 HERE = pathlib.Path(__file__).resolve().parent
+LAYOUTS = ["rail", "sidebar", "timeline", "banner"]
+BASE_FS = 8.7  # pt, before auto-fit
 
 CHROME_CANDIDATES = [
     "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
     "/opt/pw-browsers/chromium/chrome-linux/chrome",
     "chromium", "chromium-browser", "google-chrome", "google-chrome-stable",
 ]
+
+FONT_FACE = """/* ---- Typefaces (embedded, so the PDF travels as one file) -------------- */
+@font-face{{font-family:'Inter';src:url({inter_lat}) format('woff2');font-weight:100 900;font-style:normal;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}}
+@font-face{{font-family:'Inter';src:url({inter_ext}) format('woff2');font-weight:100 900;font-style:normal;
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}}
+@font-face{{font-family:'Source Serif 4';src:url({serif_lat}) format('woff2');font-weight:200 900;font-style:normal;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}}
+@font-face{{font-family:'Source Serif 4';src:url({serif_ext}) format('woff2');font-weight:200 900;font-style:normal;
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}}"""
 
 
 def find_chrome():
@@ -34,17 +47,10 @@ def e(s):
     return html.escape(str(s or "")).replace("\n", "<br>")
 
 
-def section(num, label, body):
-    return (
-        '<section>'
-        f'<div class="rail"><div class="num">{num:02d}</div><h2>{e(label)}</h2></div>'
-        f'<div>{body}</div>'
-        '</section>'
-    )
-
+# ---- Content fragments, shared by every layout ---------------------------
 
 def timeline(entries):
-    """Title on the left, date range hard right, org and detail beneath."""
+    """Role/school with its date range; .content wraps for the spine layout."""
     out = []
     for x in entries:
         when = " — ".join(p for p in (x.get("from"), x.get("to")) if p)
@@ -52,9 +58,11 @@ def timeline(entries):
         detail = f'<div class="detail">{e(x["detail"])}</div>' if x.get("detail") else ""
         out.append(
             '<div class="row">'
+            f'<div class="when">{e(when)}</div>'
+            '<div class="content">'
             f'<div class="rowhd"><span class="title">{e(x["title"])}</span>'
             f'<span class="when">{e(when)}</span></div>'
-            f"{org}{detail}</div>"
+            f"{org}{detail}</div></div>"
         )
     return "".join(out)
 
@@ -67,21 +75,8 @@ def cells(entries):
     )
 
 
-def closing_band(skills, languages):
-    """Skills in two columns, languages stacked beyond a hairline divider."""
-    if not (skills or languages):
-        return ""
-    return (
-        '<div class="split">'
-        f'<div><h3>Skills</h3><div class="grid2">{cells(skills)}</div></div>'
-        '<div class="divider"></div>'
-        f'<div><h3>Languages</h3><div class="stack">{cells(languages)}</div></div>'
-        '</div>'
-    )
-
-
 def lines(entries):
-    """Credit line: name + note on the left, result hard right."""
+    """Credit line: name and note, with the result set apart."""
     return "".join(
         '<div class="line"><div>'
         f'<div class="nm">{e(x["title"])}</div>'
@@ -93,6 +88,72 @@ def lines(entries):
     )
 
 
+def rail_sections(d, F):
+    """The rail layout numbers its sections and drops any that are empty."""
+    def band(skills, languages):
+        if not (skills or languages):
+            return ""
+        return (
+            '<div class="split">'
+            f'<div><h3>Skills</h3><div class="grid2">{cells(skills)}</div></div>'
+            '<div class="divider"></div>'
+            f'<div><h3>Languages</h3><div class="stack">{cells(languages)}</div></div>'
+            '</div>'
+        )
+
+    out, n = [], 0
+    for label, body in (
+        ("Experience", F["__EXPERIENCE__"]),
+        (F["__PROJECTS_LABEL__"], F["__PROJECTS__"]),
+        ("Education", F["__EDUCATION__"]),
+        ("Toolkit", band(d.get("skills", []), d.get("languages", []))),
+    ):
+        if body:
+            n += 1
+            out.append(
+                '<section>'
+                f'<div class="rail"><div class="num">{n:02d}</div><h2>{e(label)}</h2></div>'
+                f'<div>{body}</div></section>'
+            )
+    return "".join(out)
+
+
+def fragments(d):
+    links = d.get("links", [])
+    sep = '<span class="sep">/</span>'
+    link_run = sep.join(
+        f'<a href="{html.escape(l["url"])}">{e(l["label"])}</a>' for l in links
+    )
+    coords = [f"<div>{e(c)}</div>" for c in d["contact"]]
+    if link_run:
+        coords.append(f"<div>{link_run}</div>")
+
+    F = {
+        "__NAME__":       e(f'{d["name_first"]} {d["name_last"]}'),
+        "__NAME_FIRST__": e(d["name_first"]),
+        "__NAME_LAST__":  e(d["name_last"]),
+        "__ROLE__":       e(d["role"]),
+        "__SUMMARY__":    e(d["summary"]),
+        "__COORDS__":     "".join(coords),
+        "__COORDS_INLINE__": sep.join([e(c) for c in d["contact"]] + ([link_run] if link_run else [])),
+        "__CONTACT_LIST__": "".join(f"<li>{e(c)}</li>" for c in d["contact"]),
+        "__LINKS_LIST__": "".join(
+            f'<li><a href="{html.escape(l["url"])}">{e(l["label"])}</a></li>' for l in links
+        ),
+        "__EXPERIENCE__": timeline(d.get("experience", [])),
+        "__EDUCATION__":  timeline(d.get("education", [])),
+        "__PROJECTS__":   lines(d.get("projects", [])),
+        "__PROJECTS_LABEL__": e(d.get("projects_label", "Selected work")),
+        "__SKILLS__":     cells(d.get("skills", [])),
+        "__LANGUAGES__":  cells(d.get("languages", [])),
+        "__ACCENT__":     d.get("accent", "#8A5A3C"),
+    }
+    F["__SECTIONS__"] = rail_sections(d, F)
+    return F
+
+
+# ---- Rendering -----------------------------------------------------------
+
 def page_count(pdf):
     """Pages in the rendered PDF, or None if poppler isn't around."""
     if not shutil.which("pdfinfo"):
@@ -102,9 +163,6 @@ def page_count(pdf):
         if line.startswith("Pages:"):
             return int(line.split()[1])
     return None
-
-
-BASE_FS = 8.7  # pt
 
 
 def render(tpl, scale, out_path):
@@ -119,47 +177,21 @@ def render(tpl, scale, out_path):
     )
 
 
-def build(data_path, out_path):
+def build(data_path, out_path, layout="rail"):
     d = json.loads(pathlib.Path(data_path).read_text(encoding="utf-8"))
-    tpl = (HERE / "template.html").read_text(encoding="utf-8")
+    tpl = (HERE / f"template-{layout}.html").read_text(encoding="utf-8")
     f = HERE / "fonts"
 
-    # Coordinates block: contact lines, then links joined by hairline separators.
-    coords = [f"<div>{e(c)}</div>" for c in d["contact"]]
-    if d.get("links"):
-        joined = '<span class="sep">/</span>'.join(
-            f'<a href="{html.escape(l["url"])}">{e(l["label"])}</a>' for l in d["links"]
-        )
-        coords.append(f"<div>{joined}</div>")
-
-    # Sections are numbered in the order they appear here; empty ones drop out.
-    blocks, n = [], 0
-    for label, body in (
-        ("Experience", timeline(d.get("experience", []))),
-        (d.get("projects_label", "Selected work"), lines(d.get("projects", []))),
-        ("Education", timeline(d.get("education", []))),
-        ("Toolkit", closing_band(d.get("skills", []), d.get("languages", []))),
-    ):
-        if body:
-            n += 1
-            blocks.append(section(n, label, body))
-
-    repl = {
-        "__INTER_LAT__": data_uri(f / "Inter-latin.woff2"),
-        "__INTER_EXT__": data_uri(f / "Inter-latin-ext.woff2"),
-        "__SERIF_LAT__": data_uri(f / "SourceSerif4-latin.woff2"),
-        "__SERIF_EXT__": data_uri(f / "SourceSerif4-latin-ext.woff2"),
-        "__ACCENT__":    d.get("accent", "#8A5A3C"),
-        "__NAME__":      e(f'{d["name_first"]} {d["name_last"]}'),
-        "__ROLE__":      e(d["role"]),
-        "__SUMMARY__":   e(d["summary"]),
-        "__COORDS__":    "".join(coords),
-        "__SECTIONS__":  "".join(blocks),
-    }
-    for k, v in repl.items():
+    tpl = tpl.replace("__FONTS__", FONT_FACE.format(
+        inter_lat=data_uri(f / "Inter-latin.woff2"),
+        inter_ext=data_uri(f / "Inter-latin-ext.woff2"),
+        serif_lat=data_uri(f / "SourceSerif4-latin.woff2"),
+        serif_ext=data_uri(f / "SourceSerif4-latin-ext.woff2"),
+    ))
+    for k, v in fragments(d).items():
         tpl = tpl.replace(k, v)
 
-    # Auto-fit: shrink the whole page uniformly until it lands on one sheet.
+    # Auto-fit: step the one sizing unit down until it lands on a single sheet.
     out_path = pathlib.Path(out_path)
     scale = 1.0
     for _ in range(14):
@@ -169,7 +201,7 @@ def build(data_path, out_path):
             break
         scale -= 0.02
     else:
-        print("warning: still spilling past one page — trim some content.", file=sys.stderr)
+        print(f"warning: {layout} still spills past one page — trim some content.", file=sys.stderr)
 
     fit = "" if scale > 0.999 else f", fitted to {scale:.0%}"
     print(f"{out_path}  ({out_path.stat().st_size/1024:.0f} KB{fit})")
@@ -182,6 +214,13 @@ def build(data_path, out_path):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", default=HERE / "cv.data.json")
-    ap.add_argument("--out",  default=HERE / "Matej_Pis_CV.pdf")
+    ap.add_argument("--out", default=None)
+    ap.add_argument("--layout", default="rail", choices=LAYOUTS)
+    ap.add_argument("--all", action="store_true", help=f"render all: {', '.join(LAYOUTS)}")
     a = ap.parse_args()
-    build(a.data, a.out)
+
+    if a.all:
+        for name in LAYOUTS:
+            build(a.data, HERE / f"preview-{name}.pdf", name)
+    else:
+        build(a.data, a.out or HERE / "Matej_Pis_CV.pdf", a.layout)
