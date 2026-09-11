@@ -31,7 +31,7 @@
       "to": "Present",
       "title": "Back End Developer · Internship",
       "org": "WEZEO",
-      "detail": "Backend development with a focus on AI features and workflow automation."
+      "detail": "Builds AI agents and workflow automation."
     }
   ],
   "projects_label": "Projects & competitions",
@@ -61,7 +61,8 @@
       "group": "Backend & data",
       "items": [
         "Node.js",
-        "Supabase / Postgres"
+        "Supabase / Postgres",
+        "Linux / server admin"
       ]
     },
     {
