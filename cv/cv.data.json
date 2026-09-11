@@ -1,62 +1,44 @@
 {
   "name_first": "Matej",
-  "name_last": "Pis",
-  "role": "[Your headline / role]",
+  "name_last": "Píš",
+  "role": "Co-founder @ Dotless · AI & Prompt Engineering",
+  "accent": "#8A5A3C",
   "contact": [
-    "[email@example.com]",
-    "[+421 ...]",
-    "[City, Country]"
+    "pismatej811@gmail.com",
+    "Bratislava, Slovakia"
   ],
   "links": [
-    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/matej-pis" },
-    { "label": "GitHub",   "url": "[https://github.com/...]" },
-    { "label": "Portfolio","url": "[https://...]" }
+    { "label": "dotless.co", "url": "https://dotless.co" },
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/matej-pis" }
   ],
-  "summary": "[Two to four sentences: where you started, what you build, and what you are aiming at next. This is the paragraph a recruiter actually reads, so keep it concrete — name the tools, the scale, the outcome.]",
+  "summary": "Co-founder of Dotless — AI business discovery for freelancers and web agencies. We find businesses with missing or outdated websites and help web designers turn them into clients. 11,000+ sign-ups so far.",
   "experience": [
     {
-      "from": "[Mon YYYY]", "to": "Present",
-      "title": "[Job title]", "org": "[Company]",
-      "detail": "[What you owned and what came of it. Lead with the result, then the stack: shipped X to N users, rebuilt Y, cut Z by half.]"
+      "from": "Apr 2026", "to": "Present",
+      "title": "Co-Founder", "org": "Dotless — Bratislava, Slovakia",
+      "detail": "AI business discovery for freelancers and web agencies. Grown to 11,000+ sign-ups."
     },
     {
-      "from": "[Mon YYYY]", "to": "[Mon YYYY]",
-      "title": "[Job title]", "org": "[Company]",
-      "detail": "[Second role. Two or three lines is plenty — specifics beat adjectives.]"
-    },
-    {
-      "from": "[Mon YYYY]", "to": "[Mon YYYY]",
-      "title": "[Job title]", "org": "[Company]",
-      "detail": "[Third role.]"
+      "from": "Apr 2026", "to": "Present",
+      "title": "Back End Developer", "org": "WEZEO",
+      "detail": "[One or two lines: what you build there, and the stack.]"
     }
   ],
-  "projects": [
-    { "title": "[Project or award]", "note": "[One line on what it was.]", "tag": "[Result]" },
-    { "title": "[Project or award]", "note": "[One line on what it was.]", "tag": "[Result]" },
-    { "title": "[Project or award]", "note": "[One line on what it was.]", "tag": "[Result]" }
-  ],
+  "projects": [],
   "education": [
     {
-      "from": "[Mon YYYY]", "to": "Present",
-      "title": "[School]", "org": "[Field of study]",
-      "detail": "[Anything worth noting — focus, cohort, thesis.]"
-    },
-    {
-      "from": "[Mon YYYY]", "to": "[Mon YYYY]",
-      "title": "[School]", "org": "[Field of study]",
+      "from": "Sep 2024", "to": "Sep 2028",
+      "title": "Skyro", "org": "AI & IT High School",
       "detail": ""
     }
   ],
   "skills": [
-    { "name": "[Skill]", "level": "[Level / years]" },
-    { "name": "[Skill]", "level": "[Level / years]" },
-    { "name": "[Skill]", "level": "[Level / years]" },
-    { "name": "[Skill]", "level": "[Level / years]" },
-    { "name": "[Skill]", "level": "[Level / years]" }
+    { "name": "Web Development", "level": "" },
+    { "name": "Server Programming", "level": "" },
+    { "name": "Back-end Operations", "level": "" }
   ],
   "languages": [
-    { "name": "Slovak",  "level": "Native" },
-    { "name": "English", "level": "[C1 / Professional]" },
-    { "name": "[Language]", "level": "[Level]" }
+    { "name": "Slovak", "level": "Native" },
+    { "name": "English", "level": "[level?]" }
   ]
 }

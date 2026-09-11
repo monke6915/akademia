@@ -68,9 +68,11 @@ def timeline(entries):
 
 
 def cells(entries):
+    """Level is optional — LinkedIn exports skills without one."""
     return "".join(
         f'<div class="cell"><div class="nm">{e(x["name"])}</div>'
-        f'<div class="lv">{e(x.get("level"))}</div></div>'
+        + (f'<div class="lv">{e(x["level"])}</div>' if x.get("level") else "")
+        + "</div>"
         for x in entries
     )
 
