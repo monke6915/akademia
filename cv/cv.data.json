@@ -8,37 +8,79 @@
     "Bratislava, Slovakia"
   ],
   "links": [
-    { "label": "dotless.co", "url": "https://dotless.co" },
-    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/matej-pis" }
+    {
+      "label": "dotless.co",
+      "url": "https://dotless.co"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/matej-pis"
+    }
   ],
   "summary": "Co-founder of Dotless — AI business discovery for freelancers and web agencies. We find businesses with missing or outdated websites and help web designers turn them into clients. 11,000+ sign-ups so far.",
   "experience": [
     {
-      "from": "Apr 2026", "to": "Present",
-      "title": "Co-Founder", "org": "Dotless — Bratislava, Slovakia",
-      "detail": "AI business discovery for freelancers and web agencies. Grown to 11,000+ sign-ups."
+      "from": "Apr 2026",
+      "to": "Present",
+      "title": "Co-Founder",
+      "org": "Dotless — Bratislava, Slovakia",
+      "detail": "AI business discovery for freelancers and web agencies. Grown to 11,000+ sign-ups in the first six months, across product, automation and lead generation."
     },
     {
-      "from": "Apr 2026", "to": "Present",
-      "title": "Back End Developer", "org": "WEZEO",
-      "detail": "[One or two lines: what you build there, and the stack.]"
+      "from": "Apr 2026",
+      "to": "Present",
+      "title": "Back End Developer · Internship",
+      "org": "WEZEO",
+      "detail": "Backend development with a focus on AI features and workflow automation."
     }
   ],
   "projects": [],
   "education": [
     {
-      "from": "Sep 2024", "to": "Sep 2028",
-      "title": "Skyro", "org": "AI & IT High School",
-      "detail": ""
+      "from": "Sep 2024",
+      "to": "Sep 2028",
+      "title": "Skyro",
+      "org": "AI & IT High School",
+      "detail": "Currently in the third year."
     }
   ],
   "skills": [
-    { "name": "Web Development", "level": "" },
-    { "name": "Server Programming", "level": "" },
-    { "name": "Back-end Operations", "level": "" }
+    {
+      "group": "AI & automation",
+      "items": [
+        "Artificial Intelligence",
+        "Prompt Engineering",
+        "Workflow Automation"
+      ]
+    },
+    {
+      "group": "Engineering",
+      "items": [
+        "Web Development",
+        "Server Programming",
+        "Back-end Operations",
+        "Web Design"
+      ]
+    },
+    {
+      "group": "Product & growth",
+      "items": [
+        "SaaS",
+        "Product Development",
+        "Lead Generation",
+        "Startups",
+        "Entrepreneurship"
+      ]
+    }
   ],
   "languages": [
-    { "name": "Slovak", "level": "Native" },
-    { "name": "English", "level": "[level?]" }
+    {
+      "name": "Slovak",
+      "level": "Native"
+    },
+    {
+      "name": "English",
+      "level": "[level?]"
+    }
   ]
 }

@@ -90,6 +90,20 @@ def lines(entries):
     )
 
 
+def skill_groups(skills):
+    """Skills may be a flat list or {group, items} clusters — a CV reads better
+    clustered than as one undifferentiated column of keywords."""
+    if skills and isinstance(skills[0], dict) and "items" in skills[0]:
+        inner = "".join(
+            f'<div class="grp"><h4>{e(g["group"])}</h4>'
+            + "".join(f'<div class="cell"><div class="nm">{e(s)}</div></div>' for s in g["items"])
+            + "</div>"
+            for g in skills
+        )
+        return f'<div class="groups">{inner}</div>'
+    return f'<div class="grid2">{cells(skills)}</div>'
+
+
 def rail_sections(d, F):
     """The rail layout numbers its sections and drops any that are empty."""
     def band(skills, languages):
@@ -97,7 +111,7 @@ def rail_sections(d, F):
             return ""
         return (
             '<div class="split">'
-            f'<div><h3>Skills</h3><div class="grid2">{cells(skills)}</div></div>'
+            f'<div><h3>Skills</h3>{skill_groups(skills)}</div>'
             '<div class="divider"></div>'
             f'<div><h3>Languages</h3><div class="stack">{cells(languages)}</div></div>'
             '</div>'
@@ -146,7 +160,7 @@ def fragments(d):
         "__EDUCATION__":  timeline(d.get("education", [])),
         "__PROJECTS__":   lines(d.get("projects", [])),
         "__PROJECTS_LABEL__": e(d.get("projects_label", "Selected work")),
-        "__SKILLS__":     cells(d.get("skills", [])),
+        "__SKILLS__":     skill_groups(d.get("skills", [])),
         "__LANGUAGES__":  cells(d.get("languages", [])),
         "__ACCENT__":     d.get("accent", "#8A5A3C"),
     }

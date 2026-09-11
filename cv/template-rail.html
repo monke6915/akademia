@@ -105,6 +105,14 @@ section:last-of-type{padding-bottom:0}
   text-transform:uppercase; color:var(--faint); margin-bottom:calc(var(--u)*1);
 }
 .grid2{display:grid; grid-template-columns:repeat(2,1fr); gap:calc(var(--u)*1.15) 7mm}
+.groups{column-count:2; column-gap:7mm}
+.grp{break-inside:avoid; margin-bottom:calc(var(--u)*1.5)}
+.grp:last-child{margin-bottom:0}
+.grp h4{
+  font-size:calc(var(--fs)*.78); font-weight:500; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--accent); margin-bottom:calc(var(--u)*.6);
+}
+.grp .cell + .cell{margin-top:calc(var(--u)*.5)}
 .cell .nm{font-size:calc(var(--fs)*1.03); font-weight:600; letter-spacing:-.01em}
 .cell .lv{font-size:calc(var(--fs)*.94); color:var(--faint); margin-top:calc(var(--u)*.1)}
 .stack .cell + .cell{margin-top:calc(var(--u)*1.15)}
