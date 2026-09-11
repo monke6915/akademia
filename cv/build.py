@@ -19,15 +19,34 @@ CHROME_CANDIDATES = [
     "chromium", "chromium-browser", "google-chrome", "google-chrome-stable",
 ]
 
-FONT_FACE = """/* ---- Typefaces (embedded, so the PDF travels as one file) -------------- */
-@font-face{{font-family:'Inter';src:url({inter_lat}) format('woff2');font-weight:100 900;font-style:normal;
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}}
-@font-face{{font-family:'Inter';src:url({inter_ext}) format('woff2');font-weight:100 900;font-style:normal;
-  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}}
-@font-face{{font-family:'Source Serif 4';src:url({serif_lat}) format('woff2');font-weight:200 900;font-style:normal;
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}}
-@font-face{{font-family:'Source Serif 4';src:url({serif_ext}) format('woff2');font-weight:200 900;font-style:normal;
-  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}}"""
+LAT = ("U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,"
+       "U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD")
+EXT = ("U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,"
+       "U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,"
+       "U+2C60-2C7F,U+A720-A7FF")
+
+# IBM Plex, one superfamily in three voices: Serif for the name and section
+# headings, Sans for running text, Mono for dates and the small caps labels.
+# Plex Sans ships variable, so one file covers every weight; Serif and Mono are
+# static cuts.
+FONTS = [
+    ("IBM Plex Sans",  "100 900", "IBMPlexSans-400"),
+    ("IBM Plex Serif", "400",     "IBMPlexSerif-400"),
+    ("IBM Plex Mono",  "400",     "IBMPlexMono-400"),
+    ("IBM Plex Mono",  "500",     "IBMPlexMono-500"),
+]
+
+
+def font_face(fontdir):
+    out = []
+    for family, weight, stem in FONTS:
+        for suffix, urange in (("latin", LAT), ("latin-ext", EXT)):
+            uri = data_uri(fontdir / f"{stem}-{suffix}.woff2")
+            out.append(
+                f"@font-face{{font-family:'{family}';src:url({uri}) format('woff2');"
+                f"font-weight:{weight};font-style:normal;unicode-range:{urange};}}"
+            )
+    return "/* ---- Typefaces (embedded, so the PDF travels as one file) ---- */\n" + "\n".join(out)
 
 
 def find_chrome():
@@ -117,7 +136,7 @@ def rail_sections(d, F):
             '</div>'
         )
 
-    out, n = [], 0
+    out = []
     for label, body in (
         ("Experience", F["__EXPERIENCE__"]),
         (F["__PROJECTS_LABEL__"], F["__PROJECTS__"]),
@@ -125,10 +144,9 @@ def rail_sections(d, F):
         ("Toolkit", band(d.get("skills", []), d.get("languages", []))),
     ):
         if body:
-            n += 1
             out.append(
                 '<section>'
-                f'<div class="rail"><div class="num">{n:02d}</div><h2>{e(label)}</h2></div>'
+                f'<div class="rail"><h2>{e(label)}</h2></div>'
                 f'<div>{body}</div></section>'
             )
     return "".join(out)
@@ -198,12 +216,7 @@ def build(data_path, out_path, layout="rail"):
     tpl = (HERE / f"template-{layout}.html").read_text(encoding="utf-8")
     f = HERE / "fonts"
 
-    tpl = tpl.replace("__FONTS__", FONT_FACE.format(
-        inter_lat=data_uri(f / "Inter-latin.woff2"),
-        inter_ext=data_uri(f / "Inter-latin-ext.woff2"),
-        serif_lat=data_uri(f / "SourceSerif4-latin.woff2"),
-        serif_ext=data_uri(f / "SourceSerif4-latin-ext.woff2"),
-    ))
+    tpl = tpl.replace("__FONTS__", font_face(f))
     for k, v in fragments(d).items():
         tpl = tpl.replace(k, v)
 

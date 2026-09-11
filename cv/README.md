@@ -15,8 +15,8 @@ can switch without rebuilding anything.
 - **`template-<layout>.html`** — one file per layout: skeleton plus its own CSS.
 - **`build.py`** — turns the JSON into HTML fragments, fills a template, prints
   to PDF via headless Chromium.
-- **`fonts/`** — Inter + Source Serif 4 (SIL Open Font License), embedded into
-  the PDF so it renders identically anywhere.
+- **`fonts/`** — IBM Plex Sans, Serif and Mono (SIL Open Font License),
+  embedded into the PDF so it renders identically anywhere.
 
 The output is real selectable text, not outlines, so applicant-tracking
 systems can parse it.
@@ -44,7 +44,7 @@ keep shrinking.
 ## Changing the look
 
 - **Accent** — `"accent"` in the JSON (default `#8A5A3C`, a warm sienna). It
-  picks out section numbers, result tags and the role line. The `banner`
+  picks out result tags and the group labels. The `banner`
   layout lightens it automatically for the dark band.
 - **Palette, rail width, margins** — the `:root` block in each template.
 - **Section order and labels** — `fragments()` and the per-layout skeletons.
