@@ -34,7 +34,14 @@
       "detail": "Backend development with a focus on AI features and workflow automation."
     }
   ],
-  "projects": [],
+  "projects_label": "Competitions",
+  "projects": [
+    {
+      "title": "Hálová High School Hackathon",
+      "note": "Team hackathon for secondary school students.",
+      "tag": "[place?]"
+    }
+  ],
   "education": [
     {
       "from": "Sep 2024",
