@@ -139,7 +139,7 @@ def rail_sections(d, F):
     out = []
     for label, body in (
         ("Experience", F["__EXPERIENCE__"]),
-        (F["__PROJECTS_LABEL__"], F["__PROJECTS__"]),
+        (d.get("projects_label", "Selected work"), F["__PROJECTS__"]),
         ("Education", F["__EDUCATION__"]),
         ("Toolkit", band(d.get("skills", []), d.get("languages", []))),
     ):
